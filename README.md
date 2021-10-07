@@ -1,0 +1,2 @@
+# backtrader
+JS backtrading lib
