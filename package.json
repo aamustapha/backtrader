@@ -1,0 +1,28 @@
+{
+  "name": "backtrader",
+  "version": "1.0.0",
+  "description": "nodejs backtesting library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hooli-Technologies/backtrader.git"
+  },
+  "keywords": [
+    "nodejs",
+    "|",
+    "backtesting"
+  ],
+  "author": "A Mustapha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hooli-Technologies/backtrader/issues"
+  },
+  "homepage": "https://github.com/Hooli-Technologies/backtrader#readme",
+  "dependencies": {
+    "@types/node": "^16.10.3",
+    "typescript": "^4.4.3"
+  }
+}
