@@ -1,7 +1,8 @@
+import { EventEmitter } from "stream";
 import { Order } from "../types/order";
 import Binding from "./Binding";
 
-export default class Position {
+export default class Position extends EventEmitter {
   handler: Binding;
 
   type: string;
@@ -21,8 +22,10 @@ export default class Position {
     asset: string,
     lot: number,
     price: number,
+    stopLoss: number,
     trailingStop: number
   ) {
+    super();
     this.handler = handler;
     this.type = type;
     this.asset = asset;
@@ -32,11 +35,11 @@ export default class Position {
     this.trailingStop = trailingStop;
 
     this.open();
-    this.calculateTrailingStop();
+    this.calculateTrailingStop(stopLoss);
   }
 
-  calculateTrailingStop() {
-    const stopLoss = (1 - this.trailingStop) * this.currentPrice;
+  calculateTrailingStop(sl = this.trailingStop) {
+    const stopLoss = (1 - sl) * this.currentPrice;
     if (
       !this.exitPrice ||
       (stopLoss > this.exitPrice &&
@@ -46,17 +49,23 @@ export default class Position {
       // only move stoploss higher and than entry price
       this.exitPrice = stopLoss;
     }
-
-    console.log(`Trailing stop at => ${this.exitPrice}`);
   }
 
   priceUpdate(price: number) {
+    if (!this.isOpen) {
+      return;
+    }
+    console.log(price);
     this.currentPrice = price;
     this.check();
   }
 
   profit() {
     return this.currentPrice - this.entryPrice;
+  }
+
+  totalProfit() {
+    return this.profit() * this.lot;
   }
 
   margin() {
@@ -66,13 +75,16 @@ export default class Position {
   open() {
     this.isOpen = true;
     return this.handler.open().then((trade: Order) => {
-      this.entryPrice = trade.price;
+      // this.entryPrice = trade.price;
+      this.emit("open", trade);
     });
   }
 
   close() {
     this.isOpen = false;
-    return this.handler.close();
+    return this.handler.close().then((trade: Order) => {
+      this.emit("close", trade);
+    });
   }
 
   private check() {
@@ -80,9 +92,12 @@ export default class Position {
 
     if (this.exitPrice && this.currentPrice <= this.exitPrice) {
       console.log(
-        `Exiting trade. \nProfit => ${this.profit()} \nMargin => ${(
-          this.margin() * 100
-        ).toFixed(2)}%`
+        `Exiting trade.` +
+          `\nTrade: ${this.lot * this.entryPrice}` +
+          `\nLot: ${this.lot}` +
+          `\nPrice: ${this.currentPrice} - ${this.entryPrice}` +
+          `\nProfit => ${this.profit()}` +
+          `\nMargin => ${(this.margin() * 100).toFixed(2)}%`
       );
       this.close();
     }
