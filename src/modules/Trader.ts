@@ -24,6 +24,7 @@ export default class Trader {
     this.strategy.on("close", () => {
       if (this.strategy.tradePosition)
         this.balance += this.strategy.tradePosition.totalProfit();
+      console.log("Final balance: " + this.balance);
       this.handler.unsubscribe("update");
     });
     this.handler.subscribe("update", (candles: Candle[]) => {

@@ -55,7 +55,6 @@ export default class Position extends EventEmitter {
     if (!this.isOpen) {
       return;
     }
-    console.log(price);
     this.currentPrice = price;
     this.check();
   }
