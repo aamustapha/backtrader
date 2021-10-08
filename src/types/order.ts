@@ -1,3 +1,3 @@
-export type Order {
+export type Order = {
     price: number
 }
