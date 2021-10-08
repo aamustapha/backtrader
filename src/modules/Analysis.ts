@@ -6,7 +6,7 @@ import {
   MovingAverageType,
   TalibFunctionReturn,
 } from "../types/analysis";
-const talib = require("../node_modules/talib/build/Release/talib.node");
+const talib = require("@/../../node_modules/talib/build/Release/talib.node");
 
 export default class Analysis {
   marketData: Candle[];
@@ -15,7 +15,7 @@ export default class Analysis {
   constructor(marketData: Candle[], depth = 1000) {
     this.depth = depth;
     this.marketData = marketData;
-    
+
     this.updateMarketData(marketData);
   }
 
