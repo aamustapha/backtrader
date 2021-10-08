@@ -13,6 +13,8 @@ export default class Position {
   trailingStop: number;
   exitPrice?: number;
 
+  isOpen: Boolean = false;
+
   constructor(
     handler: Binding,
     type: string,
@@ -62,12 +64,14 @@ export default class Position {
   }
 
   open() {
+    this.isOpen = true;
     return this.handler.open().then((trade: Order) => {
       this.entryPrice = trade.price;
     });
   }
 
   close() {
+    this.isOpen = false;
     return this.handler.close();
   }
 
