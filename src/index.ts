@@ -1,12 +1,9 @@
-import Position from "./modules/Position";
 import BinanceBinding from "./binding/Binance";
+import CrossOverStrategy from "./strategy/CrossOver";
+import Trader from "./modules/Trader";
 const binance = new BinanceBinding();
 
-const p = new Position(binance, "BUY", "ETH", 3, 10, 0.05);
-p.priceUpdate(10.6);
-p.priceUpdate(10.8);
-p.priceUpdate(11);
-p.priceUpdate(10.8);
-p.priceUpdate(10.5);
-p.priceUpdate(10.5);
-p.priceUpdate(10.4);
+const bot = new Trader(1000, 0.05, binance, CrossOverStrategy);
+bot.run().then((x) => {
+  console.log("a");
+});
