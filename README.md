@@ -2,4 +2,4 @@
 
 JS backtrading lib
 
-![How it works togeter](./docs/comms.png])
+![How it works togeter](docs/comms.png)
