@@ -24,16 +24,30 @@ export interface MetaCandle extends Candle {
 export type ApplyTo = "open" | "high" | "low" | "close";
 
 export type TalibFunctionReturn = {
-  begIndex: 17;
-  nbElement: 983;
+  begIndex: number;
+  nbElement: number;
   result: {
     outReal: number[];
+  };
+};
+
+export type TalibCandlePatternReturn = {
+  begIndex: number;
+  nbElement: 983;
+  result: {
+    outInteger: number[];
   };
 };
 
 export type IndicatorLevel = {
   timestamp: number;
   level: number;
+  price?: number;
+};
+
+export type CandlePattern = {
+  timestamp: number;
+  confidence: number;
   price?: number;
 };
 
