@@ -23,6 +23,7 @@
   "homepage": "https://github.com/Hooli-Technologies/backtrader#readme",
   "dependencies": {
     "@types/node": "^16.10.3",
+    "talib": "^1.1.4",
     "typescript": "^4.4.3"
   }
 }
