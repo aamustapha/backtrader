@@ -16,7 +16,7 @@ const a = new Analysis(data);
 //   console.dir(r, { depth: null });
 // });
 
-a.bullishSignal(1).then((r) => {
+a.engulfing().then((r) => {
     console.dir(r, { depth: null });
   // console.log(JSON.stringify(r));
 });

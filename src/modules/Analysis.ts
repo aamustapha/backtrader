@@ -131,8 +131,8 @@ export default class Analysis extends BaseAnalysis {
     });
   }
 
-  hammer(): Promise<CandlePattern[]> {
-    return this.candlePattern("CDLHAMMER").then(
+  twoCros(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDL2CROWS").then(
       (confidence: TalibCandlePatternReturn) => {
         const points = confidence.result.outInteger;
         points.splice(0, 0, ...Array(confidence.begIndex));
@@ -149,8 +149,8 @@ export default class Analysis extends BaseAnalysis {
     );
   }
 
-  invertedHammer(): Promise<CandlePattern[]> {
-    return this.candlePattern("CDLINVERTEDHAMMER").then(
+  threeCrows(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDL3BLACKCROWS").then(
       (confidence: TalibCandlePatternReturn) => {
         const points = confidence.result.outInteger;
         points.splice(0, 0, ...Array(confidence.begIndex));
@@ -167,8 +167,8 @@ export default class Analysis extends BaseAnalysis {
     );
   }
 
-  morningStart(): Promise<CandlePattern[]> {
-    return this.candlePattern("CDLMORNINGSTAR").then(
+  threeInsideUpDown(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDL3INSIDE").then(
       (confidence: TalibCandlePatternReturn) => {
         const points = confidence.result.outInteger;
         points.splice(0, 0, ...Array(confidence.begIndex));
@@ -185,7 +185,61 @@ export default class Analysis extends BaseAnalysis {
     );
   }
 
-  whiteSoldiers(): Promise<CandlePattern[]> {
+  threeLineStrike(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDL3LINESTRIKE").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  threeOutsideUpDown(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDL3OUTSIDE").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  starInTheSouth(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDL3STARSINSOUTH").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  advancingWhiteSoldiers(): Promise<CandlePattern[]> {
     return this.candlePattern("CDL3WHITESOLDIERS").then(
       (confidence: TalibCandlePatternReturn) => {
         const points = confidence.result.outInteger;
@@ -203,8 +257,188 @@ export default class Analysis extends BaseAnalysis {
     );
   }
 
-  piercingLine(): Promise<CandlePattern[]> {
-    return this.candlePattern("CDLPIERCING").then(
+  abandonedBaby(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLABANDONEDBABY").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  advanceBlock(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLADVANCEBLOCK").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  beltHold(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLBELTHOLD").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  breakaway(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLBREAKAWAY").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  closingMarubozu(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLCLOSINGMARUBOZU").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  babySwallow(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLCONCEALBABYSWALL").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  counterAttack(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLCOUNTERATTACK").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  darkCloudCover(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLDARKCLOUDCOVER").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  doji(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLDOJI").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  dojiStar(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLDOJISTAR").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  dragonflyDoji(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLDRAGONFLYDOJI").then(
       (confidence: TalibCandlePatternReturn) => {
         const points = confidence.result.outInteger;
         points.splice(0, 0, ...Array(confidence.begIndex));
@@ -239,11 +473,767 @@ export default class Analysis extends BaseAnalysis {
     );
   }
 
+  eveningDojiStar(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLEVENINGDOJISTAR").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  eveningStar(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLEVENINGSTAR").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  DUMMY(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLGAPSIDESIDEWHITE").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  gravestoneDoji(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLGRAVESTONEDOJI").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  hammer(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLHAMMER").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  hangingMan(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLHANGINGMAN").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  harami(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLHARAMI").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  haramiCross(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLHARAMICROSS").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  highWaveCandle(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLHIGHWAVE").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  hikkake(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLHIKKAKE").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  hikkakeModified(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLHIKKAKEMOD").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  homingPigeon(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLHOMINGPIGEON").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  identicalThreeCrows(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLIDENTICAL3CROWS").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  inNeck(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLINNECK").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  invertedHammer(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLINVERTEDHAMMER").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  kicking(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLKICKING").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  kickingByLength(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLKICKINGBYLENGTH").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  ladder(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLLADDERBOTTOM").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  longLeggedDoji(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLLONGLEGGEDDOJI").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  longLine(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLLONGLINE").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  marubozu(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLMARUBOZU").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  matchingLow(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLMATCHINGLOW").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  matHold(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLMATHOLD").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  morningDojiStar(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLMORNINGDOJISTAR").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  morningStart(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLMORNINGSTAR").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  onNeck(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLONNECK").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  piercingLine(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLPIERCING").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  rickshawMan(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLRICKSHAWMAN").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  risingFallingMethods(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLRISEFALL3METHODS").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  separatingLines(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLSEPARATINGLINES").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  shootingStar(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLSHOOTINGSTAR").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  shortLineCandle(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLSHORTLINE").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  spinningTop(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLSPINNINGTOP").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  stalled(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLSTALLEDPATTERN").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  stickSandwich(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLSTICKSANDWICH").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  takuri(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLTAKURI").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  tasuki(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLTASUKIGAP").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  thrusting(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLTHRUSTING").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  tristar(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLTRISTAR").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  uniqueThreeRiver(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLUNIQUE3RIVER").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  upsideGap2(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLUPSIDEGAP2CROWS").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  upsideGap3(): Promise<CandlePattern[]> {
+    return this.candlePattern("CDLXSIDEGAP3METHODS").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
   bullishSignal(lookBack: number) {
     return Promise.all([
       this.engulfing(),
       this.piercingLine(),
-      this.whiteSoldiers(),
+      this.advancingWhiteSoldiers(),
       this.invertedHammer(),
       this.hammer(),
     ]).then((patterns) => {
