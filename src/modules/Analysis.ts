@@ -32,45 +32,13 @@ class BaseAnalysis {
     });
   }
 }
-export default class Analysis extends BaseAnalysis {
+class CandlePatternAnalysis extends BaseAnalysis {
   constructor(marketData: Candle[], depth = 1000) {
     super(marketData, depth);
     this.depth = depth;
     this.marketData = marketData;
 
     this.updateMarketData(marketData);
-  }
-
-  adx(period: number): Promise<TalibFunctionReturn> {
-    return new Promise((resolve, reject) => {
-      talib.execute(
-        {
-          name: "ADX",
-          startIdx: 0,
-          endIdx: this.marketData.length - 1,
-          high: this.marketData.map((candle) => candle.high),
-          low: this.marketData.map((candle) => candle.low),
-          close: this.marketData.map((candle) => candle.close),
-          optInTimePeriod: period,
-        },
-        function (err: Object, result: TalibFunctionReturn) {
-          if (err) {
-            return reject(err);
-          }
-          resolve(result);
-        }
-      );
-    });
-  }
-
-  adxLine(period: number): Promise<IndicatorLevel[]> {
-    return this.adx(period).then((adx) => {
-      const adxLine = adx.result.outReal;
-      adxLine.splice(0, 0, ...Array(adx.begIndex));
-      return this.marketData.map((candle, index) => {
-        return { timestamp: candle.timestamp, level: adxLine[index] };
-      });
-    });
   }
 
   candlePattern(pattern: string): Promise<TalibCandlePatternReturn> {
@@ -95,43 +63,7 @@ export default class Analysis extends BaseAnalysis {
     });
   }
 
-  ema(
-    period: number = 30,
-    applyTo: ApplyTo = "close"
-  ): Promise<TalibFunctionReturn> {
-    return new Promise((resolve, reject) => {
-      talib.execute(
-        {
-          name: "EMA",
-          startIdx: 0,
-          endIdx: this.marketData.length - 1,
-          inReal: this.marketData.map((candle) => candle[applyTo]),
-          optInTimePeriod: period,
-        },
-        function (err: Object, result: TalibFunctionReturn) {
-          if (err) {
-            return reject(err);
-          }
-          resolve(result);
-        }
-      );
-    });
-  }
-
-  emaLine(
-    period: number = 30,
-    applyTo: ApplyTo = "close"
-  ): Promise<IndicatorLevel[]> {
-    return this.ema(period, applyTo).then((sma) => {
-      const smaLine = sma.result.outReal;
-      smaLine.splice(0, 0, ...Array(sma.begIndex));
-      return this.marketData.map((candle, index) => {
-        return { timestamp: candle.timestamp, level: smaLine[index] };
-      });
-    });
-  }
-
-  twoCros(): Promise<CandlePattern[]> {
+  twoCrows(): Promise<CandlePattern[]> {
     return this.candlePattern("CDL2CROWS").then(
       (confidence: TalibCandlePatternReturn) => {
         const points = confidence.result.outInteger;
@@ -1241,6 +1173,76 @@ export default class Analysis extends BaseAnalysis {
         patterns;
 
       return { engulfing, piercing, whiteSoldier, invertedHammer, hammer };
+    });
+  }
+}
+
+export default class Analysis extends CandlePatternAnalysis {
+  adx(period: number): Promise<TalibFunctionReturn> {
+    return new Promise((resolve, reject) => {
+      talib.execute(
+        {
+          name: "ADX",
+          startIdx: 0,
+          endIdx: this.marketData.length - 1,
+          high: this.marketData.map((candle) => candle.high),
+          low: this.marketData.map((candle) => candle.low),
+          close: this.marketData.map((candle) => candle.close),
+          optInTimePeriod: period,
+        },
+        function (err: Object, result: TalibFunctionReturn) {
+          if (err) {
+            return reject(err);
+          }
+          resolve(result);
+        }
+      );
+    });
+  }
+
+  adxLine(period: number): Promise<IndicatorLevel[]> {
+    return this.adx(period).then((adx) => {
+      const adxLine = adx.result.outReal;
+      adxLine.splice(0, 0, ...Array(adx.begIndex));
+      return this.marketData.map((candle, index) => {
+        return { timestamp: candle.timestamp, level: adxLine[index] };
+      });
+    });
+  }
+
+  ema(
+    period: number = 30,
+    applyTo: ApplyTo = "close"
+  ): Promise<TalibFunctionReturn> {
+    return new Promise((resolve, reject) => {
+      talib.execute(
+        {
+          name: "EMA",
+          startIdx: 0,
+          endIdx: this.marketData.length - 1,
+          inReal: this.marketData.map((candle) => candle[applyTo]),
+          optInTimePeriod: period,
+        },
+        function (err: Object, result: TalibFunctionReturn) {
+          if (err) {
+            return reject(err);
+          }
+          resolve(result);
+        }
+      );
+    });
+  }
+
+  emaLine(
+    period: number = 30,
+    applyTo: ApplyTo = "close"
+  ): Promise<IndicatorLevel[]> {
+    return this.ema(period, applyTo).then((sma) => {
+      const smaLine = sma.result.outReal;
+      smaLine.splice(0, 0, ...Array(sma.begIndex));
+      return this.marketData.map((candle, index) => {
+        return { timestamp: candle.timestamp, level: smaLine[index] };
+      });
     });
   }
 
