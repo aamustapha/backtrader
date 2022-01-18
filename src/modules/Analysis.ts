@@ -1170,99 +1170,94 @@ class CandlePatternAnalysis extends BaseAnalysis {
 }
 
 class MomentumIndicatorAnalysis extends CandlePatternAnalysis {
-  adx(period: number): Promise<TalibFunctionReturn> {
+  execute(o: object): Promise<TalibFunctionReturn> {
+    console.dir(o, { depth: null });
     return new Promise((resolve, reject) => {
-      talib.execute(
-        {
-          name: "ADX",
-          startIdx: 0,
-          endIdx: this.marketData.length - 1,
-          high: this.marketData.map((candle) => candle.high),
-          low: this.marketData.map((candle) => candle.low),
-          close: this.marketData.map((candle) => candle.close),
-          optInTimePeriod: period,
-        },
-        function (err: Object, result: TalibFunctionReturn) {
-          if (err) {
-            return reject(err);
-          }
-          resolve(result);
+      talib.execute(o, function (err: Object, result: TalibFunctionReturn) {
+        if (err) {
+          return reject(err);
         }
-      );
+        resolve(result);
+      });
+    });
+  }
+
+  cci(period = 14, applyTo: ApplyTo = "close"): Promise<TalibFunctionReturn> {
+    return this.execute({
+      name: "CCI",
+      startIdx: 0,
+      endIdx: this.marketData.length - 1,
+      inReal: this.marketData.map((candle) => candle[applyTo]),
+      optInTimePeriod: period,
+    });
+  }
+
+  adx(period: number): Promise<TalibFunctionReturn> {
+    return this.execute({
+      name: "ADX",
+      startIdx: 0,
+      endIdx: this.marketData.length - 1,
+      high: this.marketData.map((candle) => candle.high),
+      low: this.marketData.map((candle) => candle.low),
+      close: this.marketData.map((candle) => candle.close),
+      optInTimePeriod: period,
     });
   }
   ema(
     period: number = 30,
     applyTo: ApplyTo = "close"
   ): Promise<TalibFunctionReturn> {
-    return new Promise((resolve, reject) => {
-      talib.execute(
-        {
-          name: "EMA",
-          startIdx: 0,
-          endIdx: this.marketData.length - 1,
-          inReal: this.marketData.map((candle) => candle[applyTo]),
-          optInTimePeriod: period,
-        },
-        function (err: Object, result: TalibFunctionReturn) {
-          if (err) {
-            return reject(err);
-          }
-          resolve(result);
-        }
-      );
+    return this.execute({
+      name: "EMA",
+      startIdx: 0,
+      endIdx: this.marketData.length - 1,
+      inReal: this.marketData.map((candle) => candle[applyTo]),
+      optInTimePeriod: period,
     });
   }
   rsi(
     period: number = 14,
     applyTo: ApplyTo = "close"
   ): Promise<TalibFunctionReturn> {
-    return new Promise((resolve, reject) => {
-      talib.execute(
-        {
-          name: "RSI",
-          startIdx: 0,
-          endIdx: this.marketData.length - 1,
-          inReal: this.marketData.map((candle) => candle[applyTo]),
-          optInTimePeriod: period,
-        },
-        function (err: Object, result: TalibFunctionReturn) {
-          if (err) {
-            return reject(err);
-          }
-          resolve(result);
-        }
-      );
+    return this.execute({
+      name: "RSI",
+      startIdx: 0,
+      endIdx: this.marketData.length - 1,
+      inReal: this.marketData.map((candle) => candle[applyTo]),
+      optInTimePeriod: period,
     });
   }
+
   sma(
     period: number = 30,
     applyTo: ApplyTo = "close"
   ): Promise<TalibFunctionReturn> {
-    return new Promise((resolve, reject) => {
-      talib.execute(
-        {
-          name: "SMA",
-          startIdx: 0,
-          endIdx: this.marketData.length - 1,
-          inReal: this.marketData.map((candle) => candle[applyTo]),
-          optInTimePeriod: period,
-        },
-        function (err: Object, result: TalibFunctionReturn) {
-          if (err) {
-            return reject(err);
-          }
-          resolve(result);
-        }
-      );
+    return this.execute({
+      name: "SMA",
+      startIdx: 0,
+      endIdx: this.marketData.length - 1,
+      inReal: this.marketData.map((candle) => candle[applyTo]),
+      optInTimePeriod: period,
     });
   }
 }
 
-class VolumeIndicator extends MomentumIndicatorAnalysis {
-
+class VolumeIndicatorAnalysis extends MomentumIndicatorAnalysis {
+  ad(): Promise<TalibFunctionReturn> {
+    return this.execute({
+      name: "AD",
+      startIdx: 0,
+      endIdx: this.marketData.length - 1,
+      inPriceHLCV: [
+        this.marketData.map((candle) => candle.high),
+        this.marketData.map((candle) => candle.low),
+        this.marketData.map((candle) => candle.close),
+        this.marketData.map((candle) => candle.volume),
+      ],
+    });
+  }
 }
-export default class Analysis extends VolumeIndicator {
+export default class Analysis extends VolumeIndicatorAnalysis {
   adxLine(period: number): Promise<IndicatorLevel[]> {
     return this.adx(period).then((adx) => {
       const adxLine = adx.result.outReal;

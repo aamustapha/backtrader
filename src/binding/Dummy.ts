@@ -1,6 +1,6 @@
 import Binding from "../modules/Binding";
 import { Order } from "../types/order";
-import { Candle, MetaCandle } from "../types/analysis";
+import { Candle } from "../types/analysis";
 import EventEmitter from "events";
 
 export default class BinanceBinding extends Binding {
@@ -8,7 +8,7 @@ export default class BinanceBinding extends Binding {
     super();
   }
 
-  fakeC: MetaCandle[] = require("./data.json");
+  fakeC: Candle[] = require("./data.json");
   async readMarketData() {
     this.fakeCandles();
   }
