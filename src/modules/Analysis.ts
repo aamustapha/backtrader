@@ -1177,7 +1177,7 @@ class CandlePatternAnalysis extends BaseAnalysis {
   }
 }
 
-export default class Analysis extends CandlePatternAnalysis {
+class IndicatorAnalysis extends CandlePatternAnalysis {
   adx(period: number): Promise<TalibFunctionReturn> {
     return new Promise((resolve, reject) => {
       talib.execute(
@@ -1198,19 +1198,8 @@ export default class Analysis extends CandlePatternAnalysis {
         }
       );
     });
-  }
-
-  adxLine(period: number): Promise<IndicatorLevel[]> {
-    return this.adx(period).then((adx) => {
-      const adxLine = adx.result.outReal;
-      adxLine.splice(0, 0, ...Array(adx.begIndex));
-      return this.marketData.map((candle, index) => {
-        return { timestamp: candle.timestamp, level: adxLine[index] };
-      });
-    });
-  }
-
-  ema(
+  },
+    ema(
     period: number = 30,
     applyTo: ApplyTo = "close"
   ): Promise<TalibFunctionReturn> {
@@ -1232,20 +1221,6 @@ export default class Analysis extends CandlePatternAnalysis {
       );
     });
   }
-
-  emaLine(
-    period: number = 30,
-    applyTo: ApplyTo = "close"
-  ): Promise<IndicatorLevel[]> {
-    return this.ema(period, applyTo).then((sma) => {
-      const smaLine = sma.result.outReal;
-      smaLine.splice(0, 0, ...Array(sma.begIndex));
-      return this.marketData.map((candle, index) => {
-        return { timestamp: candle.timestamp, level: smaLine[index] };
-      });
-    });
-  }
-
   rsi(
     period: number = 14,
     applyTo: ApplyTo = "close"
@@ -1268,21 +1243,7 @@ export default class Analysis extends CandlePatternAnalysis {
       );
     });
   }
-
-  rsiLine(
-    period: number = 14,
-    applyTo: ApplyTo = "close"
-  ): Promise<IndicatorLevel[]> {
-    return this.rsi(period, applyTo).then((rsi) => {
-      const rsiLine = rsi.result.outReal;
-      rsiLine.splice(0, 0, ...Array(rsi.begIndex));
-      return this.marketData.map((candle, index) => {
-        return { timestamp: candle.timestamp, level: rsiLine[index] };
-      });
-    });
-  }
-
-  sma(
+    sma(
     period: number = 30,
     applyTo: ApplyTo = "close"
   ): Promise<TalibFunctionReturn> {
@@ -1302,6 +1263,44 @@ export default class Analysis extends CandlePatternAnalysis {
           resolve(result);
         }
       );
+    });
+  }
+
+}
+export default class Analysis extends IndicatorAnalysis {
+  adxLine(period: number): Promise<IndicatorLevel[]> {
+    return this.adx(period).then((adx) => {
+      const adxLine = adx.result.outReal;
+      adxLine.splice(0, 0, ...Array(adx.begIndex));
+      return this.marketData.map((candle, index) => {
+        return { timestamp: candle.timestamp, level: adxLine[index] };
+      });
+    });
+  }
+
+  emaLine(
+    period: number = 30,
+    applyTo: ApplyTo = "close"
+  ): Promise<IndicatorLevel[]> {
+    return this.ema(period, applyTo).then((sma) => {
+      const smaLine = sma.result.outReal;
+      smaLine.splice(0, 0, ...Array(sma.begIndex));
+      return this.marketData.map((candle, index) => {
+        return { timestamp: candle.timestamp, level: smaLine[index] };
+      });
+    });
+  }
+
+  rsiLine(
+    period: number = 14,
+    applyTo: ApplyTo = "close"
+  ): Promise<IndicatorLevel[]> {
+    return this.rsi(period, applyTo).then((rsi) => {
+      const rsiLine = rsi.result.outReal;
+      rsiLine.splice(0, 0, ...Array(rsi.begIndex));
+      return this.marketData.map((candle, index) => {
+        return { timestamp: candle.timestamp, level: rsiLine[index] };
+      });
     });
   }
 
