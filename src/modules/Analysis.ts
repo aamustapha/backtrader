@@ -1169,7 +1169,7 @@ class CandlePatternAnalysis extends BaseAnalysis {
   }
 }
 
-class IndicatorAnalysis extends CandlePatternAnalysis {
+class MomentumIndicatorAnalysis extends CandlePatternAnalysis {
   adx(period: number): Promise<TalibFunctionReturn> {
     return new Promise((resolve, reject) => {
       talib.execute(
@@ -1258,7 +1258,11 @@ class IndicatorAnalysis extends CandlePatternAnalysis {
     });
   }
 }
-export default class Analysis extends IndicatorAnalysis {
+
+class VolumeIndicator extends MomentumIndicatorAnalysis {
+
+}
+export default class Analysis extends VolumeIndicator {
   adxLine(period: number): Promise<IndicatorLevel[]> {
     return this.adx(period).then((adx) => {
       const adxLine = adx.result.outReal;
