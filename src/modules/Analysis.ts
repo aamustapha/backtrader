@@ -33,7 +33,6 @@ class BaseAnalysis {
   }
 }
 class CandlePatternAnalysis extends BaseAnalysis {
-
   candlePattern(pattern: string): Promise<TalibCandlePatternReturn> {
     return new Promise((resolve, reject) => {
       talib.execute(
@@ -1191,8 +1190,8 @@ class IndicatorAnalysis extends CandlePatternAnalysis {
         }
       );
     });
-  },
-    ema(
+  }
+  ema(
     period: number = 30,
     applyTo: ApplyTo = "close"
   ): Promise<TalibFunctionReturn> {
@@ -1236,7 +1235,7 @@ class IndicatorAnalysis extends CandlePatternAnalysis {
       );
     });
   }
-    sma(
+  sma(
     period: number = 30,
     applyTo: ApplyTo = "close"
   ): Promise<TalibFunctionReturn> {
@@ -1258,7 +1257,6 @@ class IndicatorAnalysis extends CandlePatternAnalysis {
       );
     });
   }
-
 }
 export default class Analysis extends IndicatorAnalysis {
   adxLine(period: number): Promise<IndicatorLevel[]> {
