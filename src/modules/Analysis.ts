@@ -33,13 +33,6 @@ class BaseAnalysis {
   }
 }
 class CandlePatternAnalysis extends BaseAnalysis {
-  constructor(marketData: Candle[], depth = 1000) {
-    super(marketData, depth);
-    this.depth = depth;
-    this.marketData = marketData;
-
-    this.updateMarketData(marketData);
-  }
 
   candlePattern(pattern: string): Promise<TalibCandlePatternReturn> {
     return new Promise((resolve, reject) => {
