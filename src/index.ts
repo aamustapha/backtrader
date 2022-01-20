@@ -12,12 +12,12 @@ import { MetaCandle } from "./types/analysis";
 const data: MetaCandle[] = require("./ALGO15.json");
 const a = new Analysis(data);
 
-// a.explain("CDLHAMMER").then((r) => {
-//   console.dir(r, { depth: null });
-// });
-
-a.engulfing().then((r) => {
-    console.dir(r, { depth: null });
-  // console.log(JSON.stringify(r));
+a.explain("VAR").then((r) => {
+  console.dir(r, { depth: null });
 });
+
+// a.engulfing().then((r) => {
+//     console.dir(r, { depth: null });
+//   // console.log(JSON.stringify(r));
+// });
 // console.log(a.marketData[a.marketData.length - 1]);

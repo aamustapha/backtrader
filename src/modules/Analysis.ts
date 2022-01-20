@@ -1626,6 +1626,712 @@ export default class Analysis extends BaseAnalysis {
     );
   }
 
+  medianPrice(): Promise<CandlePattern[]> {
+    return this.candlePattern("MEDPRICE").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  moneyFlowIndex(): Promise<CandlePattern[]> {
+    return this.candlePattern("MFI").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  midPointOverPeriod(): Promise<CandlePattern[]> {
+    return this.candlePattern("MIDPOINT").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  midpointPriceOverPeriod(): Promise<CandlePattern[]> {
+    return this.candlePattern("MIDPRICE").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  lowestValueOverASpecifiedPeriod(): Promise<CandlePattern[]> {
+    return this.candlePattern("MIN").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  indexOfLwestValueOverASpecifiedPeriod(): Promise<CandlePattern[]> {
+    return this.candlePattern("MININDEX ").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  LowestAndHighestValuesOverASpecifiedPeriod(): Promise<CandlePattern[]> {
+    return this.candlePattern("MINMAX ").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  indexesofLowestAndHighestValuesOverASpecifiedPeriod(): Promise<CandlePattern[]> {
+    return this.candlePattern("MINMAXINDEX").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+  minusDirectionalIndicator(): Promise<CandlePattern[]> {
+    return this.candlePattern("MINUS_DI").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  minusDirectionalMovement(): Promise<CandlePattern[]> {
+    return this.candlePattern("MINUS_DM").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  Momentum(): Promise<CandlePattern[]> {
+    return this.candlePattern("MOM").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  normalizedAverageTrueRange(): Promise<CandlePattern[]> {
+    return this.candlePattern("NATR").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  onBalanceVolume(): Promise<CandlePattern[]> {
+    return this.candlePattern("OBV").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  plusDirectionalIndicator(): Promise<CandlePattern[]> {
+    return this.candlePattern("PLUS_DI").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  percentagePriceOscillator(): Promise<CandlePattern[]> {
+    return this.candlePattern("PPO").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  rateOfChange(): Promise<CandlePattern[]> {
+    return this.candlePattern("ROC").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  rateOChangeRatio(): Promise<CandlePattern[]> {
+    return this.candlePattern("ROCR").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  rateOfChangeRatio100Scale(): Promise<CandlePattern[]> {
+    return this.candlePattern("ROCR100").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  relativeStrengthIndex(): Promise<CandlePattern[]> {
+    return this.candlePattern("RSI").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  parabolicSAR(): Promise<CandlePattern[]> {
+    return this.candlePattern("SAR").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  parabolicSARExtended(): Promise<CandlePattern[]> {
+    return this.candlePattern("SAREXT").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  simpleMovingAverage(): Promise<CandlePattern[]> {
+    return this.candlePattern("SMA").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  standardDeviation(): Promise<CandlePattern[]> {
+    return this.candlePattern("STDDEV").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  Stochastic(): Promise<CandlePattern[]> {
+    return this.candlePattern("STOCH").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  stochasticFast(): Promise<CandlePattern[]> {
+    return this.candlePattern("STOCHF").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  stochasticRelativeStrengthIndex(): Promise<CandlePattern[]> {
+    return this.candlePattern("STOCHRSI").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  Summation(): Promise<CandlePattern[]> {
+    return this.candlePattern("SUM").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  ripleExponentialMovingAverage(): Promise<CandlePattern[]> {
+    return this.candlePattern("T3").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  tripleExponentialMovingAverage(): Promise<CandlePattern[]> {
+    return this.candlePattern("TEMA").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  trueRange(): Promise<CandlePattern[]> {
+    return this.candlePattern("TRANGE").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  triangularMovingAverage(): Promise<CandlePattern[]> {
+    return this.candlePattern("TRIMA").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  oneDayRateOfChangeROCOfATripleSmoothEMA(): Promise<CandlePattern[]> {
+    return this.candlePattern("TRIX").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  timeSeriesForecast(): Promise<CandlePattern[]> {
+    return this.candlePattern("TSF").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  typicalPrice(): Promise<CandlePattern[]> {
+    return this.candlePattern("TYPPRICE").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  ultimateOscillator(): Promise<CandlePattern[]> {
+    return this.candlePattern("ULTOSC").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  Variance(): Promise<CandlePattern[]> {
+    return this.candlePattern("VAR").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  weightedClosePrice(): Promise<CandlePattern[]> {
+    return this.candlePattern("WCLPRICE").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  WilliamsPercentageR(): Promise<CandlePattern[]> {
+    return this.candlePattern("WILLR").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  weightedMovingAverage(): Promise<CandlePattern[]> {
+    return this.candlePattern("WMA").then(
+      (confidence: TalibCandlePatternReturn) => {
+        const points = confidence.result.outInteger;
+        points.splice(0, 0, ...Array(confidence.begIndex));
+        return this.marketData
+          .map((candle, index) => {
+            return {
+              timestamp: candle.timestamp,
+              confidence: points[index],
+              price: this.marketData[index + 1]?.open,
+            };
+          })
+          .filter((point) => point.confidence > 0);
+      }
+    );
+  }
+
+  
+  
+// STOPED HERE
+
+
 
   bullishSignal(lookBack: number) {
     return Promise.all([
