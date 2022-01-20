@@ -1229,7 +1229,7 @@ export default class Analysis extends BaseAnalysis {
     );
   }
 
-  // OK I started here
+  // I started here
 
   chandeMomentumOscillator(): Promise<CandlePattern[]> {
     return this.candlePattern("CMO").then(
