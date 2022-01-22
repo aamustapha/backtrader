@@ -2331,8 +2331,6 @@ export default class Analysis extends BaseAnalysis {
   
 // STOPED HERE
 
-
-
   bullishSignal(lookBack: number) {
     return Promise.all([
       this.engulfing(),
