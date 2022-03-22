@@ -15,10 +15,7 @@ export interface Candle {
   low: number;
   close: number;
   timestamp: number;
-}
-
-export interface MetaCandle extends Candle {
-  volume: number;
+  volume?: number;
 }
 
 export type ApplyTo = "open" | "high" | "low" | "close";
