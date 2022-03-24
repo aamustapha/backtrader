@@ -1332,7 +1332,7 @@ export default class Analysis extends VolumeIndicatorAnalysis {
 
   getPattern(trend: string){
     const trends: object[] = trendMap[trend].map((pattern: string) => {
-      return this[pattern]().then((r: any) => {
+      return this[pattern]().then((r: CandlePattern[]) => {
         return r
       }).catch((e: any) => {
         console.dir(e, { depth: null });
