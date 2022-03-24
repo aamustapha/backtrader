@@ -1,4 +1,12 @@
 import fs from "fs";
+import bearishTrend from '../Binding/bearishTrend.json'
+import bullishTrend from '../Binding/bullishTrend.json'
+import bearishReversal from '../Binding/bearishReversal.json'
+import bullishReversal from '../Binding/bullishReversal.json'
+import neutralTrend from '../Binding/neutralTrend.json'
+import trendContinuation from '../Binding/trendContinuation.json'
+import trendReversal from '../Binding/trendReversal.json'
+
 import {
   ApplyTo,
   Candle,
@@ -9,7 +17,18 @@ import {
 } from "../types/analysis";
 const talib = require("@/../../node_modules/talib/build/Release/talib.node");
 
+const trendMap: any = {
+  bullish: bullishTrend,
+  bearish: bearishTrend,
+  neutral: neutralTrend,
+  bearishReversal,
+  bullishReversal,
+  trendContinuation,
+  trendReversal
+}
+
 class BaseAnalysis {
+  [name: string]: any;
   marketData: Candle[];
   depth: number;
 
@@ -35,15 +54,18 @@ class BaseAnalysis {
 class CandlePatternAnalysis extends BaseAnalysis {
   candlePattern(pattern: string): Promise<TalibCandlePatternReturn> {
     return new Promise((resolve, reject) => {
+      let startIdx: number = this.marketData.length - this.depth
+      startIdx = startIdx >= 0 ? startIdx : 0
       talib.execute(
         {
           name: pattern,
-          startIdx: 0,
+          startIdx,
           endIdx: this.marketData.length - 1,
           open: this.marketData.map((candle) => candle.open),
           high: this.marketData.map((candle) => candle.high),
           low: this.marketData.map((candle) => candle.low),
           close: this.marketData.map((candle) => candle.close),
+          optInPenetration: 0
         },
         function (err: Object, result: TalibCandlePatternReturn) {
           if (err) {
@@ -1009,6 +1031,7 @@ class CandlePatternAnalysis extends BaseAnalysis {
     );
   }
 
+  // complicated, couldn't find a suitable place for this candle
   stickSandwich(): Promise<CandlePattern[]> {
     return this.candlePattern("CDLSTICKSANDWICH").then(
       (confidence: TalibCandlePatternReturn) => {
@@ -1305,5 +1328,58 @@ export default class Analysis extends VolumeIndicatorAnalysis {
         return { timestamp: candle.timestamp, level: smaLine[index] };
       });
     });
+  }
+
+  getPattern(trend: string){
+    const trends: object[] = trendMap[trend].map((pattern: string) => {
+      return this[pattern]().then((r: any) => {
+        return r
+      }).catch((e: any) => {
+        console.dir(e, { depth: null });
+      });
+    })
+
+    return Promise.all(
+      trends
+    ).then((patterns: any) => {
+      let data: any = {}
+      trendMap[trend].map((key: string, index: number) => {
+        data[key] = patterns[index].length
+      })
+      data['total'] = Object.values(data).reduce((a:any, b:any) => a + b);
+      return {[trend]: data}
+    })
+  }
+
+  getBullishPattern() {
+    return this.getPattern("bullish")
+  }
+
+  getBearishPattern() {
+    return this.getPattern("bearish")
+  }
+
+  getNeutralPattern() {
+    return this.getPattern("neutral")
+  }
+
+  getBearishReversalPattern() {
+    return this.getPattern("bearishReversal")
+  }
+
+  getBullishReversalPattern() {
+    return this.getPattern("bullishReversal")
+  }
+
+  getTrendContinuationPattern() {
+    return this.getPattern("trendContinuation")
+  }
+
+  getTrendReversalPattern() {
+    return this.getPattern("trendReversal")
+  }
+
+  getTrend() {
+    // suggestio based on evaluation is inteded to be here
   }
 }
