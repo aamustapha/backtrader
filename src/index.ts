@@ -9,21 +9,21 @@ import { Candle } from "./types/analysis";
 // bot.run().then((x) => {
 //   console.log({ x });
 // });
-const data: Candle[] = require("./ALGO15.json");
-const a = new Analysis(data);
+// const data: Candle[] = require("./ALGO15.json");
+const data: Candle[] = require("./ETHXBT15.json");
+const a = new Analysis(data, 10);
 
 // a.explain("CDLHAMMER").then((r) => {
 //   console.dir(r, { depth: null });
 // });
 
-a.cci().then((r) => {
-    console.dir(r, { depth: null });
-  // console.log(JSON.stringify(r));
-}).catch(e => {
-  console.dir(e, { depth: null });
-});
-// console.log(a.marketData[a.marketData.length - 1]);
-
+a.getBullishPattern().then(pattern=>console.log(pattern))
+a.getBearishPattern().then(pattern=>console.log(pattern))
+a.getNeutralPattern().then(pattern=>console.log(pattern))
+a.getBearishReversalPattern().then(pattern=>console.log(pattern))
+a.getBullishReversalPattern().then(pattern=>console.log(pattern))
+a.getTrendContinuationPattern().then(pattern=>console.log(pattern))
+a.getTrendReversalPattern().then(pattern=>console.log(pattern))
 
 // a.explain("CCI").then((info) => {
 //   console.dir(info, { depth: null });
